@@ -11,6 +11,9 @@
     --color-accent: oklch(0.7008 0.1324 72.93);
     --color-bg: oklch(0.5301 0.1274 57.32);
     --color-ground: oklch(0.2396 0.0567 38.81);
+
+    --shadow-deus: 0 1px 3px 3px rgba(255, 0, 0, 0.05);
+    --inset-shadow-deus: inset 0px 0px 10px 0px rgba(0, 0, 0, 1);
 }
 
 body {
@@ -42,8 +45,8 @@ h4 {
 .container {
     display: grid;
     grid-template-columns: 2fr 1.1fr 1fr;
-    grid-template-rows: 0.6fr 0.2fr 2.2fr;
-    gap: 0.3em 0;
+    grid-template-rows: 0.6fr 0.4fr 2.2fr;
+    gap: 1em 0;
     grid-template-areas:
     "logo . contacts"
     "topmenu topmenu topmenu"
@@ -67,6 +70,7 @@ h4 {
     background-color: var(--color-bg);
     font-family: michroma,serif;
     text-align: right;
+    padding: 8pt;
 }
 
 .topmenu {
@@ -76,12 +80,14 @@ h4 {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: stretch;
+    align-items: center;
     align-content: stretch;
     gap: 8px;
+    font-size: var(--text-xl);
 }
 
 .content {
     grid-area: content;
     background-color: var(--color-bg);
+    padding: 8pt;
 }

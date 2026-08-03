@@ -5,6 +5,83 @@
     src: url('@/assets/fonts/michroma-regular.ttf');
 }
 
+@theme {
+    --color-primary: oklch(0.8932 0.1297 90.05);
+    --color-secondary: oklch(0.9611 0.1081 103.13);
+    --color-accent: oklch(0.7008 0.1324 72.93);
+    --color-bg: oklch(0.5301 0.1274 57.32);
+    --color-ground: oklch(0.2396 0.0567 38.81);
+}
+
+body {
+    background-color: var(--color-ground);
+    color: var(--color-primary);
+}
+
 h1, h2, h3, h4 {
     font-family: michroma,serif;
+    color: var(--color-secondary);
+}
+
+h1 {
+    font-size: var(--text-5xl);
+}
+
+h2 {
+    font-size: var(--text-4xl);
+}
+
+h3 {
+    font-size: var(--text-3xl);
+}
+
+h4 {
+    font-size: var(--text-xl);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1.1fr 1fr;
+    grid-template-rows: 0.6fr 0.2fr 2.2fr;
+    gap: 0.3em 0;
+    grid-template-areas:
+    "logo . contacts"
+    "topmenu topmenu topmenu"
+    "content content content";
+    width: 70%;
+}
+
+.box {
+    margin-top: 48pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    grid-area: logo;
+}
+
+.contacts {
+    grid-area: contacts;
+    background-color: var(--color-bg);
+    font-family: michroma,serif;
+    text-align: right;
+}
+
+.topmenu {
+    grid-area: topmenu;
+    background-color: var(--color-bg);
+    font-family: michroma,serif;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    align-content: stretch;
+    gap: 8px;
+}
+
+.content {
+    grid-area: content;
+    background-color: var(--color-bg);
 }

@@ -11,6 +11,7 @@
     --color-accent: oklch(0.7008 0.1324 72.93);
     --color-bg: oklch(0.5301 0.1274 57.32);
     --color-ground: oklch(0.2396 0.0567 38.81);
+    --color-faded-triangles: oklch(0.2516 0.0019 106.53);
 
     --shadow-deus: 0 1px 3px 3px rgba(255, 0, 0, 0.05);
     --inset-shadow-deus: inset 0px 0px 10px 0px rgba(0, 0, 0, 1);
@@ -123,10 +124,6 @@ h4 {
     margin-left: calc(var(--tri-w) * -0.5);
 }
 
-.tri polygon {
-    fill: var(--color-amber-950);
-}
-
-.tri.down polygon {
-    fill: var(--color-black);
+.tri {
+    fill: var(--color-faded-triangles);
 }

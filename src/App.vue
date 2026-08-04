@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {animate, stagger} from 'animejs';
 import {onMounted} from "vue";
-import {buildTriangleBackground} from "@/utils/triangle-bg.ts";
+import {buildTriangleBackground, startTriangleAnimation} from "@/lib/triangle-lib.ts";
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import HeaderContacts from "@/components/HeaderContacts.vue";
 import TopMenu from "@/components/TopMenu.vue";
@@ -12,17 +11,8 @@ onMounted(() => {
 
   if (stage) {
     buildTriangleBackground(stage);
+    startTriangleAnimation(stage.querySelectorAll('.tri'));
   }
-
-  animate('.tri', {
-    x: 320,
-    rotate: { from: -180 },
-    duration: 1250,
-    delay: stagger(65, { from: 'first' }),
-    ease: 'inOutQuint',
-    loop: true,
-    alternate: true
-  });
 });
 </script>
 

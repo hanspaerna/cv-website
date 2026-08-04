@@ -7,16 +7,21 @@ const MAX_PARALLEL_ANIMATIONS = 40;
 
 const dynamicColors = ['var(--color-primary)', 'var(--color-secondary)', 'var(--color-accent)', 'var(--color-white)'];
 
-function upTriangleSVG(cls: string): string {
-    return `<svg class="tri ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg">
+function upTriangleSVG(cls: string, color: string): string {
+    return `<svg class="tri ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg" style="fill: ${color}">
       <polygon points="0,${TRI_H} ${TRI_W/2},0 ${TRI_W},${TRI_H}" />
     </svg>`;
 }
 
-function downTriangleSVG(cls: string): string {
-    return `<svg class="tri down ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg">
+function downTriangleSVG(cls: string, color: string): string {
+    return `<svg class="tri down ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg" style="fill: ${color}">
       <polygon points="0,0 ${TRI_W},0 ${TRI_W/2},${TRI_H}" />
     </svg>`;
+}
+
+function getRandomShadeOfGreyRgb(): string {
+    const num = randomInteger(0, 32);
+    return `rgb(${num},${num},${num})`;
 }
 
 export function buildTriangleBackground(stage: HTMLElement): void {
@@ -32,7 +37,9 @@ export function buildTriangleBackground(stage: HTMLElement): void {
         for (let c = 0; c < cols; c++) {
             const isUp = c % 2 === 0;
             const cls = `r${r}-c${c}`;
-            html += isUp ? upTriangleSVG(cls) : downTriangleSVG(cls);
+            html += isUp
+                ? upTriangleSVG(cls, getRandomShadeOfGreyRgb())
+                : downTriangleSVG(cls, getRandomShadeOfGreyRgb());
         }
         html += `</div>`;
     }

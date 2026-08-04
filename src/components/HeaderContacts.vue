@@ -3,9 +3,7 @@
 
 <template>
   <div class="contacts flex justify-between flex-wrap">
-    <div class="photo pl-30">
-      <!--<img src="@/assets/photo-website.png" class="object-contain" alt="" />-->
-    </div>
+    <div class="photo pl-30"></div>
     <div class="pl-5">
       <p>Berlin, Germany</p>
       <p><a href="tel:+4915128833976">+49 151 288-33-976</a></p>

@@ -149,7 +149,7 @@ a:hover {
 
 .bg-triangles {
     position: absolute;
-    filter: blur(2px);
+    filter: blur(1px);
     inset: 0;
 }
 
@@ -172,10 +172,6 @@ a:hover {
 
 .tri + .tri {
     margin-left: calc(var(--tri-w) * -0.5);
-}
-
-.tri {
-    fill: var(--color-faded-triangles);
 }
 
 .photo {
@@ -208,7 +204,7 @@ a:hover {
     .logo {
         margin-left: 10px;
     }
-    
+
     .topmenu {
         flex-direction: column;
     }

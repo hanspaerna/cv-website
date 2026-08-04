@@ -7,6 +7,8 @@ const MAX_PARALLEL_ANIMATIONS = 40;
 
 const dynamicColors = ['var(--color-primary)', 'var(--color-secondary)', 'var(--color-accent)', 'var(--color-white)'];
 
+let resizeTimer: number;
+
 function upTriangleSVG(cls: string, color: string): string {
     return `<svg class="tri ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg" style="fill: ${color}">
       <polygon points="0,${TRI_H} ${TRI_W/2},0 ${TRI_W},${TRI_H}" />
@@ -24,7 +26,10 @@ function getRandomShadeOfGreyRgb(): string {
     return `rgb(${num},${num},${num})`;
 }
 
-export function buildTriangleBackground(stage: HTMLElement): void {
+export function buildTriangleBackground(): void {
+    const stage = document.getElementById('stage');
+    if (stage === null) return;
+
     const rect = stage.getBoundingClientRect();
     const cols = Math.ceil((2 * rect.width) / TRI_W) + 2;
     const rows = Math.ceil(rect.height / TRI_H) + 1;
@@ -45,6 +50,11 @@ export function buildTriangleBackground(stage: HTMLElement): void {
     }
 
     stage.innerHTML = html;
+
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => buildTriangleBackground(), 150);
+    });
 }
 
 function animateRandomTriangle(triangles: NodeListOf<Element>): void {
@@ -63,9 +73,12 @@ function animateRandomTriangle(triangles: NodeListOf<Element>): void {
     }).then(() => animateRandomTriangle(triangles));
 }
 
-export function startTriangleAnimation(triangles: NodeListOf<Element>) {
+export function startTriangleAnimation() {
+    const stage = document.getElementById('stage');
+    if (stage === null) return;
+
     for (let i = 0; i < MAX_PARALLEL_ANIMATIONS; i++) {
-        animateRandomTriangle(triangles);
+        animateRandomTriangle(stage.querySelectorAll('.tri'));
     }
 }
 

@@ -7,12 +7,8 @@ import TopMenu from "@/components/TopMenu.vue";
 import Footer from "@/components/Footer.vue";
 
 onMounted(() => {
-  const stage = document.getElementById('stage');
-
-  if (stage) {
-    buildTriangleBackground(stage);
-    startTriangleAnimation(stage.querySelectorAll('.tri'));
-  }
+  buildTriangleBackground();
+  startTriangleAnimation();
 });
 </script>
 

@@ -4,6 +4,7 @@ import {buildTriangleBackground, startTriangleAnimation} from "@/lib/triangle-li
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import HeaderContacts from "@/components/HeaderContacts.vue";
 import TopMenu from "@/components/TopMenu.vue";
+import Footer from "@/components/Footer.vue";
 
 onMounted(() => {
   const stage = document.getElementById('stage');
@@ -27,6 +28,7 @@ onMounted(() => {
           <div class="content">
             <RouterView />
           </div>
+          <Footer />
         </div>
       </div>
     </div>

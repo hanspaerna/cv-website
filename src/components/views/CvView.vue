@@ -2,5 +2,7 @@
 </script>
 
 <template>
-  cv
+  <div class="content">
+    <p>cv</p>
+  </div>
 </template>

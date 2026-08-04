@@ -20,9 +20,11 @@ onMounted(() => {
           <HeaderLogo />
           <HeaderContacts />
           <TopMenu />
-          <div class="content">
-            <RouterView />
-          </div>
+          <router-view v-slot="{ Component }">
+            <transition name="fade">
+              <component :key="$route.path" :is="Component" />
+            </transition>
+          </router-view>
           <Footer />
         </div>
       </div>

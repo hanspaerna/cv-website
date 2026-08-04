@@ -67,6 +67,27 @@ a:hover {
     color: var(--color-white);
 }
 
+/* Vue Router transitions */
+
+.fade-enter-active {
+    animation: fade 0.5s;
+}
+
+.fade-leave-active {
+    animation: fade 0.5s reverse;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: var(--blocks-opacity);
+    }
+}
+
+/* grid */
+
 .topmenu a {
     text-decoration-thickness: 2px;
 }
@@ -108,6 +129,15 @@ a:hover {
     opacity: var(--blocks-opacity);
 }
 
+.photo {
+    background-color: black;
+    background-image: url("@/assets/photo-website.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    clip-path: var(--clip-path-sliced);
+}
+
 .topmenu {
     padding: 8px 0 8px 0;
     grid-area: topmenu;
@@ -147,9 +177,11 @@ a:hover {
     margin-right: 10%;
 }
 
+/* animated triangle background */
+
 .bg-triangles {
     position: absolute;
-    filter: blur(1px);
+    filter: blur(4px);
     inset: 0;
 }
 
@@ -174,14 +206,7 @@ a:hover {
     margin-left: calc(var(--tri-w) * -0.5);
 }
 
-.photo {
-    background-color: black;
-    background-image: url("@/assets/photo-website.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    clip-path: var(--clip-path-sliced);
-}
+/* media queries */
 
 @media (width <= 960px) {
     .container {

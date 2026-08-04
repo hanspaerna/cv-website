@@ -2,5 +2,7 @@
 </script>
 
 <template>
-  feedback
+  <div class="content">
+    <p>feedback</p>
+  </div>
 </template>

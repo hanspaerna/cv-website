@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="contacts shadow-deus shadow-primary inset-shadow-deus inset-shadow-primary">
+  <div class="contacts">
     <p>+49 888 88-888-88</p>
     <p>hans.paerna@tsal.al</p>
     <p>LinkedIn</p>

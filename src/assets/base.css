@@ -14,11 +14,17 @@
     --color-faded-triangles: oklch(0.2516 0.0019 106.53);
 
     --shadow-deus: 0 1px 3px 3px rgba(255, 0, 0, 0.05);
-    --inset-shadow-deus: inset 0px 0px 10px 0px rgba(0, 0, 0, 1);
+}
+
+:root {
+    --tri-w: 60px;
+    --tri-h: 52px;
+    --clip-path-sliced: polygon(0 10px,10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px));
+    --blocks-opacity: 95%;
 }
 
 body {
-    background-color: var(--color-ground);
+    background-color: var(--color-faded-triangles);
     color: var(--color-primary);
 }
 
@@ -53,6 +59,7 @@ h4 {
     "topmenu topmenu topmenu"
     "content content content";
     width: 70%;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
 }
 
 .box {
@@ -69,14 +76,18 @@ h4 {
 .contacts {
     grid-area: contacts;
     background-color: var(--color-bg);
+    background-image: url('@/assets/triangle-pattern.svg');
     font-family: michroma,serif;
     text-align: right;
     padding: 8pt;
+    clip-path: var(--clip-path-sliced);
+    opacity: var(--blocks-opacity);
 }
 
 .topmenu {
     grid-area: topmenu;
     background-color: var(--color-bg);
+    background-image: url('@/assets/triangle-pattern.svg');
     font-family: michroma,serif;
     display: inline-flex;
     flex-direction: row;
@@ -85,17 +96,17 @@ h4 {
     align-content: stretch;
     gap: 8px;
     font-size: var(--text-xl);
+    clip-path: var(--clip-path-sliced);
+    opacity: var(--blocks-opacity);
 }
 
 .content {
     grid-area: content;
     background-color: var(--color-bg);
+    background-image: url('@/assets/triangle-pattern.svg');
     padding: 8pt;
-}
-
-:root {
-    --tri-w: 60px;
-    --tri-h: 52px;
+    clip-path: var(--clip-path-sliced);
+    opacity: var(--blocks-opacity);
 }
 
 .bg-triangles {

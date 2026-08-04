@@ -100,6 +100,7 @@ h4 {
 
 .bg-triangles {
     position: absolute;
+    filter: blur(2px);
     inset: 0;
 }
 

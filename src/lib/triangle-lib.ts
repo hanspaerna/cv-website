@@ -47,9 +47,9 @@ function animateRandomTriangle(triangles: NodeListOf<Element>): void {
 
     animate(triangles.item(randomTriangleIndex), {
         fill: dynamicColors[randomColorIndex]!,
-        duration: 1000,
-        alternate: true,
+        duration: 2000,
         delay: stagger(600),
+
         onComplete: (self) => {
             self.reverse();
         },

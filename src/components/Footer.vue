@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="footer text-xs">
+  <div class="footer text-xs mx-30">
     Handcrafted in 2026. Licensed by CC BY-NC-ND.
   </div>
 </template>

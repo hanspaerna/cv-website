@@ -91,3 +91,42 @@ h4 {
     background-color: var(--color-bg);
     padding: 8pt;
 }
+
+:root {
+    --tri-w: 60px;
+    --tri-h: 52px;
+}
+
+.bg-triangles {
+    position: absolute;
+    inset: 0;
+}
+
+.tri-row {
+    display: flex;
+    line-height: 0;
+    transform: translateX(calc(var(--tri-w) * -0.5));
+}
+
+.tri-row.offset {
+    transform: translateX(calc(var(--tri-w) * -1));
+}
+
+.tri {
+    width: var(--tri-w);
+    height: var(--tri-h);
+    flex: 0 0 auto;
+    display: block;
+}
+
+.tri + .tri {
+    margin-left: calc(var(--tri-w) * -0.5);
+}
+
+.tri polygon {
+    fill: var(--color-amber-950);
+}
+
+.tri.down polygon {
+    fill: var(--color-black);
+}

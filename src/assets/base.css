@@ -31,6 +31,7 @@
 body {
     background-color: var(--color-faded-triangles);
     color: var(--color-primary);
+    overflow-y: hidden;
 }
 
 h1, h2, h3, h4 {
@@ -54,12 +55,15 @@ h4 {
     font-size: var(--text-xl);
 }
 
-
 a:link {
     text-decoration: underline;
 }
 
 a:hover {
+    color: var(--color-white);
+}
+
+.router-link-active {
     color: var(--color-white);
 }
 
@@ -69,16 +73,17 @@ a:hover {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 0.6fr 0.3fr 2.2fr 0.2fr;
+    grid-template-columns: 1fr 1fr max-content;
+    grid-auto-rows: auto;
     gap: 1em 0;
     grid-template-areas:
-    "logo . contacts"
+    "logo logo contacts"
     "topmenu topmenu topmenu"
     "content content content"
-    ". footer .";
+    "footer footer footer";
     width: 80%;
     filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    margin-bottom: 20px;
 }
 
 .box {
@@ -104,6 +109,7 @@ a:hover {
 }
 
 .topmenu {
+    padding: 8px 0 8px 0;
     grid-area: topmenu;
     background-color: var(--color-bg);
     background-image: url('@/assets/triangle-pattern.svg');
@@ -168,4 +174,13 @@ a:hover {
 
 .tri {
     fill: var(--color-faded-triangles);
+}
+
+.photo {
+    background-color: black;
+    background-image: url("@/assets/photo-website.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    clip-path: var(--clip-path-sliced);
 }

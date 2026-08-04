@@ -4,7 +4,7 @@
 <template>
   <div class="topmenu">
     <div class="grow text-center">
-      <RouterLink to="/">/> about</RouterLink>
+      <RouterLink to="/">//> about</RouterLink>
     </div>
     <div class="grow text-center">
       <RouterLink to="/projects">/> projects</RouterLink>

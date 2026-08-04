@@ -19,7 +19,7 @@ onMounted(() => {
 <template>
   <main>
     <div class="bg-triangles overflow-hidden" id="stage"></div>
-    <div class="absolute w-full">
+    <div class="absolute w-full overflow-y-scroll h-full">
       <div class="box">
         <div class="container">
           <HeaderTitle />

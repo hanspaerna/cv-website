@@ -208,13 +208,13 @@ a:hover {
 
 /* media queries */
 
-@media (width <= 960px) {
+@media (width <= 1084px) {
     .container {
         width: 100vw;
     }
 }
 
-@media (width <= 768px) {
+@media (width <= 1024px) {
     .container {
         grid-template-areas:
         "logo logo logo"

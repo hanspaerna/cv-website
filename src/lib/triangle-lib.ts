@@ -43,7 +43,6 @@ function animateRandomTriangle(triangles: NodeListOf<Element>): void {
 }
 
 function startTriangleAnimation() {
-    console.log("start triangle animation");
     const stage = document.getElementById('stage');
     if (stage === null) return;
 

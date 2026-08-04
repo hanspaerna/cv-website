@@ -1,4 +1,10 @@
 {
+  "include": [
+    "./typed-router.d.ts"
+  ],
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+  },
   "files": [],
   "references": [
     {

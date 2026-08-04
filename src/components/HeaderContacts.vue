@@ -3,9 +3,9 @@
 
 <template>
   <div class="contacts">
-    <p>+49 888 88-888-88</p>
-    <p>hans.paerna@tsal.al</p>
-    <p>LinkedIn</p>
-    <p>Github</p>
+    <p><a href="tel:+4915128833976">+49 151 288-33-976</a></p>
+    <p><a href="mailto:sqlob@protonmail.ch">sqlob@protonmail.ch</a></p>
+    <p><a href="https://www.linkedin.com/in/hans-paerna/" target="_blank">LinkedIn</a></p>
+    <p><a href="https://github.com/hanspaerna/" target="_blank">Github</a></p>
   </div>
 </template>

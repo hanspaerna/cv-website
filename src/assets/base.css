@@ -16,6 +16,11 @@
     --shadow-deus: 0 1px 3px 3px rgba(255, 0, 0, 0.05);
 }
 
+::selection {
+    color: var(--color-bg);
+    background-color: var(--color-ground);
+}
+
 :root {
     --tri-w: 60px;
     --tri-h: 52px;
@@ -47,6 +52,19 @@ h3 {
 
 h4 {
     font-size: var(--text-xl);
+}
+
+
+a:link {
+    text-decoration: underline;
+}
+
+a:hover {
+    color: var(--color-white);
+}
+
+.topmenu a {
+    text-decoration-thickness: 2px;
 }
 
 .container {

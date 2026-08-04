@@ -4,16 +4,16 @@
 <template>
   <div class="topmenu">
     <div class="grow text-center">
-      /> about
+      <RouterLink to="/">/> about</RouterLink>
     </div>
     <div class="grow text-center">
-      /> projects
+      <RouterLink to="/projects">/> projects</RouterLink>
     </div>
     <div class="grow text-center">
-      /> feedback
+      <RouterLink to="/feedback">/> feedback</RouterLink>
     </div>
     <div class="grow text-center">
-      /> cv
+      <RouterLink to="/cv">/> cv</RouterLink>
     </div>
   </div>
 </template>

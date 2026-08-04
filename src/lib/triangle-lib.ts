@@ -26,7 +26,37 @@ function getRandomShadeOfGreyRgb(): string {
     return `rgb(${num},${num},${num})`;
 }
 
-export function buildTriangleBackground(): void {
+function animateRandomTriangle(triangles: NodeListOf<Element>): void {
+    const trianglesCount = triangles.length;
+    const randomTriangleIndex = randomInteger(0, trianglesCount - 1);
+    const randomColorIndex = randomInteger(0, dynamicColors.length - 1);
+
+    animate(triangles.item(randomTriangleIndex), {
+        fill: dynamicColors[randomColorIndex]!,
+        duration: 2000,
+        delay: stagger(600),
+
+        onComplete: (self) => {
+            self.reverse();
+        },
+    }).then(() => animateRandomTriangle(triangles));
+}
+
+function startTriangleAnimation() {
+    console.log("start triangle animation");
+    const stage = document.getElementById('stage');
+    if (stage === null) return;
+
+    for (let i = 0; i < MAX_PARALLEL_ANIMATIONS; i++) {
+        animateRandomTriangle(stage.querySelectorAll('.tri'));
+    }
+}
+
+export function randomInteger(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function initializeTriangles(): void {
     const stage = document.getElementById('stage');
     if (stage === null) return;
 
@@ -51,37 +81,12 @@ export function buildTriangleBackground(): void {
 
     stage.innerHTML = html;
 
+    startTriangleAnimation();
+
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => buildTriangleBackground(), 150);
+        resizeTimer = setTimeout(() => {
+            initializeTriangles();
+        }, 150);
     });
-}
-
-function animateRandomTriangle(triangles: NodeListOf<Element>): void {
-    const trianglesCount = triangles.length;
-    const randomTriangleIndex = randomInteger(0, trianglesCount - 1);
-    const randomColorIndex = randomInteger(0, dynamicColors.length - 1);
-
-    animate(triangles.item(randomTriangleIndex), {
-        fill: dynamicColors[randomColorIndex]!,
-        duration: 2000,
-        delay: stagger(600),
-
-        onComplete: (self) => {
-            self.reverse();
-        },
-    }).then(() => animateRandomTriangle(triangles));
-}
-
-export function startTriangleAnimation() {
-    const stage = document.getElementById('stage');
-    if (stage === null) return;
-
-    for (let i = 0; i < MAX_PARALLEL_ANIMATIONS; i++) {
-        animateRandomTriangle(stage.querySelectorAll('.tri'));
-    }
-}
-
-export function randomInteger(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

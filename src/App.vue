@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import {onMounted} from "vue";
-import {buildTriangleBackground, startTriangleAnimation} from "@/lib/triangle-lib.ts";
+import {initializeTriangles} from "@/lib/triangle-lib.ts";
 import HeaderLogo from "@/components/HeaderLogo.vue";
 import HeaderContacts from "@/components/HeaderContacts.vue";
 import TopMenu from "@/components/TopMenu.vue";
 import Footer from "@/components/Footer.vue";
 
 onMounted(() => {
-  buildTriangleBackground();
-  startTriangleAnimation();
+  initializeTriangles();
 });
 </script>
 

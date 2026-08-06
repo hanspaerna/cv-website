@@ -1,19 +1,12 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+const router = useRouter();
 </script>
 
 <template>
   <div class="topmenu">
-    <div class="grow text-center">
-      <RouterLink to="/">/> about</RouterLink>
-    </div>
-    <div class="grow text-center">
-      <RouterLink to="/projects">/> projects</RouterLink>
-    </div>
-    <div class="grow text-center">
-      <RouterLink to="/feedback">/> feedback</RouterLink>
-    </div>
-    <div class="grow text-center">
-      <RouterLink to="/cv">/> cv</RouterLink>
-    </div>
+    <router-link v-for="route in router.options.routes" :key="route.name" :to="route.path" class="grow text-center">
+      {{ typeof route.name === "string" ? `/> ${route.name.toLowerCase()}` : '/> untitled' }}
+    </router-link>
   </div>
 </template>

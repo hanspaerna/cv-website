@@ -3,6 +3,6 @@
 
 <template>
   <div class="footer text-xs">
-    Handcrafted in 2026. Licensed by CC BY-NC-ND.
+    Handcrafted in 2026. License: CC BY-NC-ND.
   </div>
 </template>

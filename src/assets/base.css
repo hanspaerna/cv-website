@@ -177,6 +177,13 @@ a:hover {
     margin-right: 10%;
 }
 
+/* markdown */
+
+.markdown {
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
 /* animated triangle background */
 
 .bg-triangles {

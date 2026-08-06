@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "markdown.css";
 
 @font-face {
     font-family: michroma;
@@ -34,7 +35,7 @@ body {
     overflow-y: hidden;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
     font-family: michroma,serif;
     color: var(--color-secondary);
 }
@@ -177,11 +178,24 @@ a:hover {
     margin-right: 10%;
 }
 
-/* markdown */
+/* custom container */
+.warning {
+    background-color: #ff8;
+    padding: 20px;
+    border-radius: 6px;
+}
 
-.markdown {
-    margin-left: 15px;
-    margin-bottom: 15px;
+.github-link {
+    color: #333;
+}
+.github-link:hover {
+    color: #000;
+}
+.github-link svg {
+    display: block;
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
 }
 
 /* animated triangle background */

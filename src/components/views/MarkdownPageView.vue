@@ -13,7 +13,7 @@ const plugins = [
     frontMatterPlugin
 ];
 
-const options: Options = { html: true };
+const options: Options = { html: true, typographer: true };
 </script>
 
 <template>

@@ -14,8 +14,7 @@ const pagesRecord = import.meta.glob(
 
 // create ordered routes dynamically from md files
 for (const [, value] of Object.entries(pagesRecord)) {
-    // @ts-ignore
-    const markdown = value.default;
+    const markdown = (value as any).default;
     const yamlMetadata = loadFront(markdown);
 
     routes.push({
@@ -26,8 +25,13 @@ for (const [, value] of Object.entries(pagesRecord)) {
     });
 }
 
-// @ts-ignore
-routes.sort((a,b) => a.props.order - b.props.order);
+routes.sort((a,b) => {
+    if (a.props && b.props) {
+        return (a.props as any).order - (b.props as any).order;
+    }
+
+    return 0;
+});
 
 const router = createRouter({
     history: createWebHistory(),

@@ -7,7 +7,7 @@ const MAX_PARALLEL_ANIMATIONS = 40;
 
 const dynamicColors = ['var(--color-primary)', 'var(--color-secondary)', 'var(--color-accent)', 'var(--color-white)'];
 
-let resizeTimer: number;
+let resizeTimer: NodeJS.Timeout;
 
 function upTriangleSVG(cls: string, color: string): string {
     return `<svg class="tri ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg" style="fill: ${color}">

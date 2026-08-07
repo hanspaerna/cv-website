@@ -1,7 +1,7 @@
-import {animate, stagger} from "animejs";
+import {engine, animate, stagger} from "animejs";
 
-const TRI_W = 60;
-const TRI_H = 52;
+export const TRI_W = 60;
+export const TRI_H = 52;
 
 const MAX_PARALLEL_ANIMATIONS = 40;
 
@@ -9,15 +9,17 @@ const dynamicColors = ['var(--color-primary)', 'var(--color-secondary)', 'var(--
 
 let resizeTimer: NodeJS.Timeout;
 
+engine.fps = 30;
+
 function upTriangleSVG(cls: string, color: string): string {
-    return `<svg class="tri ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg" style="fill: ${color}">
-      <polygon points="0,${TRI_H} ${TRI_W/2},0 ${TRI_W},${TRI_H}" />
+    return `<svg class="tri ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg">
+      <use href="#triangleUp" style="fill: ${color};"></use>
     </svg>`;
 }
 
 function downTriangleSVG(cls: string, color: string): string {
-    return `<svg class="tri down ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg" style="fill: ${color}">
-      <polygon points="0,0 ${TRI_W},0 ${TRI_W/2},${TRI_H}" />
+    return `<svg class="tri down ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg">
+      <use href="#triangleDown" style="fill: ${color};"></use>
     </svg>`;
 }
 
@@ -47,7 +49,7 @@ function startTriangleAnimation() {
     if (stage === null) return;
 
     for (let i = 0; i < MAX_PARALLEL_ANIMATIONS; i++) {
-        animateRandomTriangle(stage.querySelectorAll('.tri'));
+        animateRandomTriangle(stage.querySelectorAll('.tri use'));
     }
 }
 

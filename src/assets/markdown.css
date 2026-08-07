@@ -81,16 +81,17 @@
     border: 1px solid var(--color-secondary);
     padding-left: 2px;
     padding-right: 2px;
-    background-color: var(--color-faded-triangles);
+    background-color: var(--color-faded-triangle);
     border-radius: 4px;
 }
 
 .markdown pre {
     padding: 8px;
     margin-bottom: 1rem;
-    background-color: var(--color-faded-triangles);
+    background-color: var(--color-faded-triangle);
     border: 1px solid var(--color-secondary);
     border-radius: 4px;
+    overflow-x: scroll;
 }
 
 .markdown pre code {

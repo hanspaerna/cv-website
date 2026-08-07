@@ -12,7 +12,8 @@
     --color-accent: oklch(0.7008 0.1324 72.93);
     --color-bg: oklch(0.5301 0.1274 57.32);
     --color-ground: oklch(0.2396 0.0567 38.81);
-    --color-faded-triangles: oklch(0.2516 0.0019 106.53);
+    --color-faded-triangle: oklch(0.2516 0.0019 106.53);
+    --color-brightest-triangle: oklch(0.9926 0.0049 52);
 
     --shadow-deus: 0 1px 3px 3px rgba(255, 0, 0, 0.05);
 }
@@ -30,7 +31,7 @@
 }
 
 body {
-    background-color: var(--color-faded-triangles);
+    background-color: var(--color-faded-triangle);
     color: var(--color-primary);
     overflow-y: hidden;
 }
@@ -204,27 +205,6 @@ a:hover {
     position: absolute;
     filter: blur(4px);
     inset: 0;
-}
-
-.tri-row {
-    display: flex;
-    line-height: 0;
-    transform: translateX(calc(var(--tri-w) * -0.5));
-}
-
-.tri-row.offset {
-    transform: translateX(calc(var(--tri-w) * -1));
-}
-
-.tri {
-    width: var(--tri-w);
-    height: var(--tri-h);
-    flex: 0 0 auto;
-    display: block;
-}
-
-.tri + .tri {
-    margin-left: calc(var(--tri-w) * -0.5);
 }
 
 /* media queries */

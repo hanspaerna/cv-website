@@ -1,56 +1,34 @@
-import {engine, animate, stagger} from "animejs";
+import {engine, animate, utils, JSAnimation} from "animejs";
+import colorParse from 'color-parse'
 
-export const TRI_W = 60;
-export const TRI_H = 52;
+type Coordinate = {
+    x: number;
+    y: number;
+}
 
-const MAX_PARALLEL_ANIMATIONS = 40;
+type Triangle = {
+    p0: Coordinate;
+    p1: Coordinate;
+    p2: Coordinate;
+    p3: Coordinate;
+    defaultColor: string;
+}
 
-const dynamicColors = ['var(--color-primary)', 'var(--color-secondary)', 'var(--color-accent)', 'var(--color-white)'];
+const TRI_W = 60;
+const TRI_H = 52;
+
+const MAX_PARALLEL_ANIMATIONS = 50;
+
+const dynamicColors = ['--color-primary', '--color-secondary', '--color-accent', '--color-brightest-triangle'];
+const styles = getComputedStyle(document.documentElement);
 
 let resizeTimer: NodeJS.Timeout;
+let triangles: Triangle[] = [];
+let animations: JSAnimation[] = [];
 
-engine.fps = 30;
-
-function upTriangleSVG(cls: string, color: string): string {
-    return `<svg class="tri ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg">
-      <use href="#triangleUp" style="fill: ${color};"></use>
-    </svg>`;
-}
-
-function downTriangleSVG(cls: string, color: string): string {
-    return `<svg class="tri down ${cls}" viewBox="0 0 ${TRI_W} ${TRI_H}" xmlns="http://www.w3.org/2000/svg">
-      <use href="#triangleDown" style="fill: ${color};"></use>
-    </svg>`;
-}
-
-function getRandomShadeOfGreyRgb(): string {
-    const num = randomInteger(0, 32);
-    return `rgb(${num},${num},${num})`;
-}
-
-function animateRandomTriangle(triangles: NodeListOf<Element>): void {
-    const trianglesCount = triangles.length;
-    const randomTriangleIndex = randomInteger(0, trianglesCount - 1);
-    const randomColorIndex = randomInteger(0, dynamicColors.length - 1);
-
-    animate(triangles.item(randomTriangleIndex), {
-        fill: dynamicColors[randomColorIndex]!,
-        duration: 2000,
-        delay: stagger(600),
-
-        onComplete: (self) => {
-            self.reverse();
-        },
-    }).then(() => animateRandomTriangle(triangles));
-}
-
-function startTriangleAnimation() {
-    const stage = document.getElementById('stage');
-    if (stage === null) return;
-
-    for (let i = 0; i < MAX_PARALLEL_ANIMATIONS; i++) {
-        animateRandomTriangle(stage.querySelectorAll('.tri use'));
-    }
+function getRandomShadeOfGreyOklch(): string {
+    const num = randomInteger(0, 2435);
+    return `oklch(${num / 10000} 0 0)`;
 }
 
 export function randomInteger(min: number, max: number): number {
@@ -58,36 +36,163 @@ export function randomInteger(min: number, max: number): number {
 }
 
 export function initializeTriangles(): void {
-    const stage = document.getElementById('stage');
-    if (stage === null) return;
+    const canvasEl = document.querySelector('#stage') as HTMLCanvasElement;
+    if (!canvasEl) return;
 
-    const rect = stage.getBoundingClientRect();
-    const cols = Math.ceil((2 * rect.width) / TRI_W) + 2;
-    const rows = Math.ceil(rect.height / TRI_H) + 1;
-    let html = '';
+    const ctx = canvasEl.getContext('2d');
+    if (!ctx) return;
 
-    for (let r = 0; r < rows; r++) {
-        const offsetClass = r % 2 === 1 ? 'offset' : '';
-        html += `<div class="tri-row ${offsetClass}" data-row="${r}">`;
+    canvasEl.width = window.innerWidth;
+    canvasEl.height = window.innerHeight;
+    canvasEl.style.width = window.innerWidth + 'px';
+    canvasEl.style.height = window.innerHeight + 'px';
+    canvasEl.getContext('2d')!.scale(1, 1);
 
-        for (let c = 0; c < cols; c++) {
-            const isUp = c % 2 === 0;
-            const cls = `r${r}-c${c}`;
-            html += isUp
-                ? upTriangleSVG(cls, getRandomShadeOfGreyRgb())
-                : downTriangleSVG(cls, getRandomShadeOfGreyRgb());
+    let yOffset = 0;
+    let rowOrderType = randomInteger(0, 1);
+
+    for (let i = rowOrderType; i < 30 + rowOrderType; i++) {
+        if (i % 2 === 0) {
+            createLineVariant1(ctx, yOffset);
+        } else {
+            createLineVariant2(ctx, yOffset);
         }
-        html += `</div>`;
-    }
 
-    stage.innerHTML = html;
+        yOffset += TRI_H;
+    }
 
     startTriangleAnimation();
 
+    const prevWidth = window.innerWidth;
+
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
+
         resizeTimer = setTimeout(() => {
+            const width = window.innerWidth;
+            if (prevWidth === width) {
+                return; // only window width change is the reason for re-drawing the canvas and destroying previous animations
+            }
+
+            // clean all previous unfinished animations to avoid animated triangles misaligned to the grid
+            animations.forEach((anim) => {
+                anim.revert();
+            });
+
+            animations = [];
+            triangles = [];
             initializeTriangles();
         }, 150);
     });
+}
+
+function createLineVariant1(ctx: CanvasRenderingContext2D, yOffset: number) {
+    createTriangleDown(ctx, -TRI_W / 2, yOffset);
+    let xOffset = TRI_W / 2;
+
+    for (let i = 0; i < 30; i++) {
+        createTriangleUp(ctx, xOffset - TRI_W / 2, yOffset);
+        createTriangleDown(ctx, xOffset, yOffset);
+        xOffset += TRI_W;
+    }
+}
+
+function createLineVariant2(ctx: CanvasRenderingContext2D, yOffset: number) {
+    createTriangleUp(ctx, -TRI_W / 2, yOffset);
+    let xOffset = TRI_W / 2;
+
+    for (let i = 0; i < 30; i++) {
+        createTriangleDown(ctx, xOffset - TRI_W / 2, yOffset);
+        createTriangleUp(ctx, xOffset, yOffset);
+        xOffset += TRI_W;
+    }
+}
+
+function createTriangleUp(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
+    const triangle: Triangle = {
+        p0: {x: xOffset, y: TRI_H + yOffset},
+        p1: {x: xOffset + TRI_W, y: TRI_H + yOffset},
+        p2: {x: xOffset + TRI_W / 2, y: yOffset},
+        p3: {x: xOffset, y: TRI_H + yOffset},
+        defaultColor: getRandomShadeOfGreyOklch()
+    }
+
+    drawTriangle(ctx, triangle);
+    triangles.push(triangle);
+}
+
+function createTriangleDown(ctx: CanvasRenderingContext2D, xOffset: number, yOffset: number): void {
+    const triangle: Triangle = {
+        p0: {x: xOffset, y: yOffset},
+        p1: {x: xOffset + TRI_W, y: yOffset},
+        p2: {x: xOffset + TRI_W / 2, y: TRI_H + yOffset},
+        p3: {x: xOffset, y: yOffset},
+        defaultColor: getRandomShadeOfGreyOklch()
+    }
+
+    drawTriangle(ctx, triangle);
+    triangles.push(triangle);
+}
+
+function drawTriangle(ctx: CanvasRenderingContext2D, triangle: Triangle) {
+    ctx.beginPath();
+    ctx.moveTo(triangle.p0.x, triangle.p0.y);
+    ctx.lineTo(triangle.p1.x, triangle.p1.y);
+    ctx.lineTo(triangle.p2.x, triangle.p2.y);
+    ctx.lineTo(triangle.p3.x, triangle.p3.y);
+    ctx.closePath();
+
+    ctx.fillStyle = triangle.defaultColor;
+    ctx.fill();
+}
+
+function animateRandomTriangle(ctx: CanvasRenderingContext2D): void {
+    const trianglesCount = triangles.length;
+    const randomTriangleIndex = randomInteger(0, trianglesCount - 1);
+    const randomColorIndex = randomInteger(0, dynamicColors.length - 1);
+
+    const defaultColor = colorParse(triangles[randomTriangleIndex]!.defaultColor);
+    const targetColor = colorParse(styles.getPropertyValue(dynamicColors[randomColorIndex]!));
+
+    if (targetColor.space !== "oklch" || defaultColor.space !== "oklch") {
+        console.error("[triangle-lib]: all colors must be of oklch type");
+    }
+
+    if (targetColor.values.length !== 3 || defaultColor.values.length !== 3) {
+        console.error("[triangle-lib]: all oklch colors must be absolute values");
+    }
+
+    let oklch = {
+        lightness: defaultColor.values[0],
+        chroma: defaultColor.values[1],
+        hue: defaultColor.values[2],
+    };
+
+    animate(oklch, {
+        lightness: targetColor.values[0] as number,
+        chroma: targetColor.values[1] as number,
+        hue: targetColor.values[2] as number,
+        duration: 4000,
+        ease: 'out(2)',
+        modifier: utils.lerp(0, 1),
+        onUpdate: () => {drawTriangle(ctx, {...triangles[randomTriangleIndex],
+            defaultColor: `oklch(${oklch.lightness} ${oklch.chroma} ${oklch.hue})`} as Triangle);
+        },
+        onBegin: (self) => animations.push(self),
+        onComplete: (self) => {
+            self.reverse();
+        },
+    }).then(() => animateRandomTriangle(ctx));
+}
+
+function startTriangleAnimation() {
+    const canvasEl = document.querySelector('#stage') as HTMLCanvasElement;
+    if (!canvasEl) return;
+
+    const ctx = canvasEl.getContext('2d');
+    if (!ctx) return;
+
+    for (let i = 0; i < MAX_PARALLEL_ANIMATIONS; i++) {
+        animateRandomTriangle(ctx);
+    }
 }

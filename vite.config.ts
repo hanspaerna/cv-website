@@ -29,10 +29,9 @@ export default defineConfig({
       protocolImports: true,
     }),
   ],
-  resolve: {
+resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  assetsInclude: '**/*.md'
 })

@@ -6,33 +6,51 @@ import MarkdownPageView from "@/components/views/MarkdownPageView.vue";
 import {createPageMarkdown, type PageMarkdown} from "@/lib/markdown-lib.ts";
 
 let routes: RouteRecordRaw[] = [];
+let rawMarkdowns: {filename: string, value: string}[] = [];
 
-const pagesRecord = import.meta.glob(
-    "/src/assets/markdown/*.md",
-    { base: "/src/assets/markdown/", query: '?raw', eager: true}
-);
+if (import.meta.env.DEV) {
+    const pagesRecord = import.meta.glob(
+        "/src/assets/markdown-demo/*.md",
+        { base: "/src/assets/markdown-demo/", query: '?raw', eager: true}
+    );
+
+    for (const [filename, value] of Object.entries(pagesRecord)) {
+        rawMarkdowns.push({filename, value: (value as any).default});
+    }
+} else {
+    const response = await fetch("/md/");
+    const results = await response.json();
+
+    for (let i = 0; i < results.length; i++) {
+        console.log("iteration for: " + results[i].name);
+        const mdResponse = await fetch('/md/' + results[i].name);
+        const text = await mdResponse.text();
+        console.log(text);
+        rawMarkdowns.push({filename: results[i].name, value: text});
+    }
+}
 
 // create ordered routes dynamically from md files
-for (const [filename, value] of Object.entries(pagesRecord)) {
+rawMarkdowns.forEach((rawMarkdown) => {
     let pageMarkdown: PageMarkdown;
 
     try {
-        pageMarkdown = createPageMarkdown((value as any).default);
+        pageMarkdown = createPageMarkdown(rawMarkdown.value);
     } catch (e) {
         console.warn('[markdown-lib] ' + e);
         console.warn(
-            `Skipping creation of a route from a markdown file ${filename} that contains invalid front matter metadata`
+            `Skipping creation of a route from a markdown file ${rawMarkdown.filename} that contains invalid front matter metadata`
         );
-        continue;
+        return;
     }
 
     routes.push({
         path: pageMarkdown.route,
         name: pageMarkdown.title,
         component: MarkdownPageView,
-        props: { markdownContent: pageMarkdown.content, menu: pageMarkdown.menu, menuOrder: pageMarkdown.menuOrder }
+        props: {markdownContent: pageMarkdown.content, menu: pageMarkdown.menu, menuOrder: pageMarkdown.menuOrder}
     });
-}
+});
 
 routes.sort((a,b) => {
     if (a.props && b.props) {

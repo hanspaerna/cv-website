@@ -1,6 +1,7 @@
 ---
 title: About
-order: 1
+menu: true
+menuOrder: 1
 route: /
 ---
 ---

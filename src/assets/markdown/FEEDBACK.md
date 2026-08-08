@@ -1,6 +1,7 @@
 ---
 title: Feedback
-order: 2
+menu: true
+menuOrder: 2
 route: /feedback
 ---
 # Feedback

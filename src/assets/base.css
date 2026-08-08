@@ -6,6 +6,7 @@
     src: url('@/assets/fonts/michroma-regular.ttf');
 }
 
+/* only absolute oklch colors are compatible with triangle-lib */
 @theme {
     --color-primary: oklch(0.8932 0.1297 90.05);
     --color-secondary: oklch(0.9611 0.1081 103.13);

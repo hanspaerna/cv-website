@@ -1,6 +1,7 @@
 ---
 title: Projects
-order: 3
+menu: true
+menuOrder: 3
 route: /projects
 ---
 # Projects

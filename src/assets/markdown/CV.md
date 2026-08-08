@@ -1,6 +1,7 @@
 ---
 title: CV
-order: 4
+menu: true
+menuOrder: 4
 route: /cv
 ---
 # CV

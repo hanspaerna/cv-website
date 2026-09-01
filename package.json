@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@types/yaml-front-matter": "^4.1.3",
+    "@unhead/vue": "^3.0.0-beta.9",
     "animejs": "^4.5.0",
     "color-parse": "^2.1.2",
     "markdown-it-front-matter": "^0.2.4",

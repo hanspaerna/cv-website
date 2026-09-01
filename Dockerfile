@@ -20,6 +20,10 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 COPY nginx/default.conf /etc/nginx/conf.d/
 
+# Add runtime configuration script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/entrypoint.sh"]

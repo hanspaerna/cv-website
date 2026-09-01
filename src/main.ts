@@ -4,6 +4,7 @@ import type {RouteRecordRaw} from "vue-router";
 import { createRouter, createWebHistory } from 'vue-router'
 import MarkdownPageView from "@/components/views/MarkdownPageView.vue";
 import {createPageMarkdown, type PageMarkdown} from "@/lib/markdown-lib.ts";
+import { createHead } from '@unhead/vue/client'
 
 let routes: RouteRecordRaw[] = [];
 let rawMarkdowns: {filename: string, value: string}[] = [];
@@ -48,7 +49,12 @@ rawMarkdowns.forEach((rawMarkdown) => {
         path: pageMarkdown.route,
         name: pageMarkdown.title,
         component: MarkdownPageView,
-        props: {markdownContent: pageMarkdown.content, menu: pageMarkdown.menu, menuOrder: pageMarkdown.menuOrder}
+        props: {
+            pageTitle: pageMarkdown.title,
+            markdownContent: pageMarkdown.content,
+            menu: pageMarkdown.menu,
+            menuOrder: pageMarkdown.menuOrder
+        }
     });
 });
 
@@ -65,4 +71,14 @@ const router = createRouter({
     routes,
 })
 
-createApp(App).use(router).mount('#app')
+const head = createHead({
+    init: [
+        {
+            title: '',
+            titleTemplate: `%s | ${import.meta.env.VITE_FIRST_NAME} ${import.meta.env.VITE_LAST_NAME}`,
+            htmlAttrs: { lang: 'en' }
+        },
+    ]
+});
+
+createApp(App).use(router).use(head).mount('#app');

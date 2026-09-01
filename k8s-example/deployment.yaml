@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+spec:
+  selector:
+    matchLabels:
+      app: cv-website
+  template:
+    spec:
+      containers:
+        - name: cv-website
+          image: your_registry/cv-website:latest
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 200m
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: pages
+              mountPath: /md/
+      volumes:
+        - name: pages
+          configMap:
+            name: pages

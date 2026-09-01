@@ -1,0 +1,7 @@
+resources:
+  - deployment.yaml
+
+configMapGenerator:
+  - name: pages
+    files:
+      - pages/ABOUT.md

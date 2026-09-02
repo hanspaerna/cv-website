@@ -23,10 +23,8 @@ if (import.meta.env.DEV) {
     const results = await response.json();
 
     for (let i = 0; i < results.length; i++) {
-        console.log("iteration for: " + results[i].name);
         const mdResponse = await fetch('/md/' + results[i].name);
         const text = await mdResponse.text();
-        console.log(text);
         rawMarkdowns.push({filename: results[i].name, value: text});
     }
 }

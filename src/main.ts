@@ -69,11 +69,13 @@ const router = createRouter({
     routes,
 })
 
+const windowContext = (window as any).config;
+
 const head = createHead({
     init: [
         {
             title: '',
-            titleTemplate: `%s | ${import.meta.env.VITE_FIRST_NAME} ${import.meta.env.VITE_LAST_NAME}`,
+            titleTemplate: `%s | ${windowContext.VITE_FIRST_NAME ?? import.meta.env.VITE_FIRST_NAME} ${windowContext.VITE_LAST_NAME ?? import.meta.env.VITE_LAST_NAME}`,
             htmlAttrs: { lang: 'en' }
         },
     ]

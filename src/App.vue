@@ -10,14 +10,17 @@ onMounted(() => {
   initializeTriangles();
 });
 
-const firstName = import.meta.env.VITE_FIRST_NAME;
-const lastName = import.meta.env.VITE_LAST_NAME;
-const occupation = import.meta.env.VITE_OCCUPATION;
-const city = import.meta.env.VITE_CITY;
-const phone = import.meta.env.VITE_PHONE;
-const email = import.meta.env.VITE_EMAIL;
-const github = import.meta.env.VITE_GITHUB;
-const linkedIn = import.meta.env.VITE_LINKEDIN;
+
+const windowContext = (window as any).config;
+
+const firstName = windowContext.VITE_FIRST_NAME ?? import.meta.env.VITE_FIRST_NAME;
+const lastName = windowContext.VITE_LAST_NAME ?? import.meta.env.VITE_LAST_NAME;
+const occupation = windowContext.VITE_OCCUPATION ?? import.meta.env.VITE_OCCUPATION;
+const city = windowContext.VITE_CITY ?? import.meta.env.VITE_CITY;
+const phone = windowContext.VITE_PHONE ?? import.meta.env.VITE_PHONE;
+const email = windowContext.VITE_EMAIL ?? import.meta.env.VITE_EMAIL;
+const github = windowContext.VITE_GITHUB ?? import.meta.env.VITE_GITHUB;
+const linkedIn = windowContext.VITE_LINKEDIN ?? import.meta.env.VITE_LINKEDIN;
 </script>
 
 <template>

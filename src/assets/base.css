@@ -141,6 +141,13 @@ a:hover {
     clip-path: var(--clip-path-sliced);
 }
 
+.cuneiform-barag {
+    height: var(--text-5xl);
+    color: var(--color-secondary);
+    display: inline;
+    filter: url(#shadow);
+}
+
 .topmenu {
     padding: 8px 0 8px 0;
     grid-area: topmenu;

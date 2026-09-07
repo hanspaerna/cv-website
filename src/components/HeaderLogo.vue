@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import BaragCuneiformIcon from "@/components/icons/BaragCuneiformIcon.vue";
+
 defineProps({
   firstName: String,
   lastName: String,
@@ -8,7 +10,7 @@ defineProps({
 
 <template>
   <div class="logo text-shadow-lg text-shadow-black">
-    <h1>{{ firstName }} &#73800; {{ lastName }}</h1>
+    <h1>{{ firstName }} <BaragCuneiformIcon class="cuneiform-barag mx-1" /> {{ lastName }}</h1>
     <h4>{{ occupation }}</h4>
   </div>
 </template>

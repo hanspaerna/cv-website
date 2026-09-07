@@ -210,14 +210,9 @@ a:hover {
 
 /* media queries */
 
-@media (width <= 1084px) {
-    .container {
-        width: 100vw;
-    }
-}
-
 @media (width <= 1024px) {
     .container {
+        width: 100vw;
         grid-template-areas:
         "logo logo logo"
         "contacts contacts contacts"
@@ -225,15 +220,15 @@ a:hover {
         "content content content"
         "footer footer footer";
     }
+
+    .topmenu {
+        flex-direction: column;
+    }
 }
 
 @media (width <= 640px) {
     .logo {
         margin-left: 10px;
-    }
-
-    .topmenu {
-        flex-direction: column;
     }
 }
 
